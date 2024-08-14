@@ -1,0 +1,76 @@
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+    <h3>Signup</h3>
+    <hr />
+    <form [formGroup]="signupForm" (ngSubmit)="onSignupSubmit()">
+      <div class="mb-3">
+        <label>Email</label>
+        <input type="email" class="form-control" formControlName="email" />
+        <div
+          *ngIf="
+            signupForm?.get('email')?.touched &&
+            !signupForm?.get('email')?.valid
+          "
+        >
+          <div
+            *ngIf="signupForm?.get('email')?.errors?.['required']"
+            class="text-danger"
+          >
+            Email is required
+          </div>
+          <div
+            *ngIf="signupForm?.get('email')?.errors?.['email']"
+            class="text-danger"
+          >
+            Invalid Email
+          </div>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label>Password</label>
+        <input
+          type="password"
+          class="form-control"
+          formControlName="password"
+        />
+        <div
+          *ngIf="
+            signupForm?.get('password')?.touched &&
+            !signupForm?.get('password')?.valid
+          "
+          class="text-danger"
+        >
+          <div>Password is required</div>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label>Confirm Password</label>
+        <input
+          type="password"
+          class="form-control"
+          formControlName="confirmPassword"
+        />
+        <div
+          *ngIf="
+            signupForm.get('confirmPassword')?.touched &&
+            signupForm.hasError('notMatching')
+          "
+          class="text-danger"
+        >
+        
+          Passwords do not match
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="!signupForm.valid"
+        >
+          Signup
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
