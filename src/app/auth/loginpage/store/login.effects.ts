@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { LoginServiceService } from '../service/login-service.service';
 import { createEffect, ofType, Actions } from '@ngrx/effects';
 import { loginfail, loginStart, loginSucess } from './login.action';
-import { catchError, filter, map, of, switchMap } from 'rxjs';
+import { catchError, map, of, switchMap } from 'rxjs';
 
 @Injectable()
 export class LoginEffects {
@@ -17,7 +17,7 @@ export class LoginEffects {
         this.loginService.login(action.loginuser).pipe(
           map((loginusers) => {
             console.log(loginusers);
-            
+
             if (loginusers.length > 0) {
               return loginSucess({ redirect: true });
             } else {
@@ -44,13 +44,14 @@ export class LoginEffects {
       ),
     { dispatch: false }
   );
-  loginfail$=createEffect(()=>
-  this.action$.pipe(
-    ofType(loginfail),
-    map(()=>{
-      alert('Invaid Credentials')
-    })
-  ),
-  { dispatch: false }
-)
+  loginfail$ = createEffect(
+    () =>
+      this.action$.pipe(
+        ofType(loginfail),
+        map(() => {
+          alert('Invaid Credentials');
+        })
+      ),
+    { dispatch: false }
+  );
 }

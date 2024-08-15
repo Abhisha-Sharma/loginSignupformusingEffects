@@ -19,7 +19,7 @@ export class SignupPageComponent implements OnInit {
 
   constructor(
     private store: Store,
-    private signupService: SignupServiceService
+    // private signupService: SignupServiceService
   ) {}
   ngOnInit(): void {
     this.signupForm = new FormGroup(
@@ -34,7 +34,7 @@ export class SignupPageComponent implements OnInit {
   passwordsMatch(control: AbstractControl) {
     const password = control.get('password')?.value;
     const confirmPassword = control.get('confirmPassword')?.value;
-    console.log(password, confirmPassword);
+    // console.log(password, confirmPassword);
 
     return password === confirmPassword?null
       // ? { notMatching: null }
@@ -49,6 +49,7 @@ export class SignupPageComponent implements OnInit {
         confirmPassword,
         id: this.generateId(),
       };
+      console.log('User Data:', user);
       this.store.dispatch(signupStart({ user }));
     }
     this.signupForm.reset();
